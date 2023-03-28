@@ -20,9 +20,6 @@ func tableAivenServiceIntegrationEndpoint(ctx context.Context) *plugin.Table {
 		Get: &plugin.GetConfig{
 			KeyColumns: plugin.AllColumns([]string{"endpoint_id", "project_name"}),
 			Hydrate:    getServiceIntegrationEndpoint,
-			IgnoreConfig: &plugin.IgnoreConfig{
-				ShouldIgnoreErrorFunc: shouldIgnoreErrors([]string{"404"}),
-			},
 		},
 		Columns: []*plugin.Column{
 			{
@@ -54,7 +51,7 @@ func tableAivenServiceIntegrationEndpoint(ctx context.Context) *plugin.Table {
 			{
 				Name:        "user_config",
 				Type:        proto.ColumnType_JSON,
-				Description: "Service integration settings.",
+				Description: "Service integration endpoint settings.",
 			},
 		},
 	}

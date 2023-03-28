@@ -20,9 +20,6 @@ func tableAivenService(ctx context.Context) *plugin.Table {
 		Get: &plugin.GetConfig{
 			KeyColumns: plugin.AllColumns([]string{"name", "project_name"}),
 			Hydrate:    getService,
-			IgnoreConfig: &plugin.IgnoreConfig{
-				ShouldIgnoreErrorFunc: shouldIgnoreErrors([]string{"404"}),
-			},
 		},
 		Columns: []*plugin.Column{
 			{
@@ -117,11 +114,6 @@ func tableAivenService(ctx context.Context) *plugin.Table {
 				Name:        "connection_pools",
 				Type:        proto.ColumnType_JSON,
 				Description: "PostgreSQL PGBouncer connection pools.",
-			},
-			{
-				Name:        "group_list",
-				Type:        proto.ColumnType_JSON,
-				Description: "List of service groups the service belongs to. This field is deprecated. It is always set to single element with value 'default'.",
 			},
 			{
 				Name:        "integrations",

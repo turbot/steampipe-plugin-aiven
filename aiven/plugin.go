@@ -12,10 +12,8 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 	p := &plugin.Plugin{
 		Name:             "steampipe-plugin-aiven",
 		DefaultTransform: transform.FromCamel(),
-		DefaultGetConfig: &plugin.GetConfig{
-			IgnoreConfig: &plugin.IgnoreConfig{
-				ShouldIgnoreErrorFunc: shouldIgnoreErrors([]string{"404"}),
-			},
+		DefaultIgnoreConfig: &plugin.IgnoreConfig{
+			ShouldIgnoreErrorFunc: shouldIgnoreErrors([]string{"404"}),
 		},
 		ConnectionConfigSchema: &plugin.ConnectionConfigSchema{
 			NewInstance: ConfigInstance,
@@ -27,7 +25,6 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			"aiven_account_team":                 tableAivenAccountTeam(ctx),
 			"aiven_account_team_member":          tableAivenAccountTeamMember(ctx),
 			"aiven_billing_group":                tableAivenBillingGroup(ctx),
-			"aiven_database":                     tableAivenDatabase(ctx),
 			"aiven_project":                      tableAivenProject(ctx),
 			"aiven_project_event_log":            tableAivenProjectEventLog(ctx),
 			"aiven_project_vpc":                  tableAivenProjectVpc(ctx),

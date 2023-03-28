@@ -17,9 +17,6 @@ func tableAivenBillingGroup(ctx context.Context) *plugin.Table {
 		Get: &plugin.GetConfig{
 			KeyColumns: plugin.SingleColumn("id"),
 			Hydrate:    getBillingGroup,
-			IgnoreConfig: &plugin.IgnoreConfig{
-				ShouldIgnoreErrorFunc: shouldIgnoreErrors([]string{"404"}),
-			},
 		},
 		Columns: []*plugin.Column{
 			{

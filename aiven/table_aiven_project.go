@@ -18,9 +18,6 @@ func tableAivenProject(ctx context.Context) *plugin.Table {
 		Get: &plugin.GetConfig{
 			KeyColumns: plugin.SingleColumn("name"),
 			Hydrate:    getProject,
-			IgnoreConfig: &plugin.IgnoreConfig{
-				ShouldIgnoreErrorFunc: shouldIgnoreErrors([]string{"404"}),
-			},
 		},
 		Columns: []*plugin.Column{
 			{
