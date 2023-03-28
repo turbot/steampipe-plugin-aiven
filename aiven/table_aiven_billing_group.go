@@ -25,52 +25,52 @@ func tableAivenBillingGroup(ctx context.Context) *plugin.Table {
 			{
 				Name:        "id",
 				Type:        proto.ColumnType_STRING,
-				Description: "The name of the billing group.",
+				Description: "The billing group ID.",
 			},
 			{
 				Name:        "billing_group_name",
 				Type:        proto.ColumnType_STRING,
-				Description: "The name of the billing group.",
+				Description: "The billing group name.",
 			},
 			{
 				Name:        "account_id",
 				Type:        proto.ColumnType_STRING,
-				Description: "The name of the billing group.",
-			},
-			{
-				Name:        "state",
-				Type:        proto.ColumnType_STRING,
-				Description: "Payment method.",
+				Description: "The account ID.",
 			},
 			{
 				Name:        "billing_currency",
 				Type:        proto.ColumnType_STRING,
-				Description: "The ID of the account.",
+				Description: "The billing currency.",
 			},
 			{
 				Name:        "billing_extra_text",
 				Type:        proto.ColumnType_STRING,
-				Description: "Available credits, in USD.",
+				Description: "Extra text to be included in all project invoices, e.g. purchase order or cost center number.",
 			},
 			{
 				Name:        "card_id",
 				Type:        proto.ColumnType_STRING,
-				Description: "Extra text to be included in all billing group invoices, e.g. purchase order or cost center number.",
+				Description: "Credit card assigned to the project.",
 			},
 			{
 				Name:        "city",
 				Type:        proto.ColumnType_STRING,
-				Description: "The country.",
+				Description: "The address city.",
 			},
 			{
 				Name:        "company",
 				Type:        proto.ColumnType_STRING,
-				Description: "Default cloud to use when launching billing groups.",
+				Description: "The name of a company.",
 			},
 			{
 				Name:        "country_code",
 				Type:        proto.ColumnType_STRING,
-				Description: "Estimated balance, in USD.",
+				Description: "Two letter ISO country code.",
+			},
+			{
+				Name:        "state",
+				Type:        proto.ColumnType_STRING,
+				Description: "The address state.",
 			},
 			{
 				Name:        "vat_id",
@@ -80,7 +80,7 @@ func tableAivenBillingGroup(ctx context.Context) *plugin.Table {
 			{
 				Name:        "zip_code",
 				Type:        proto.ColumnType_STRING,
-				Description: "Billing currency.",
+				Description: "The address zip code.",
 			},
 			{
 				Name:        "billing_emails",
