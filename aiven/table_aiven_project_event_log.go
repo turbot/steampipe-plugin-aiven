@@ -15,6 +15,12 @@ func tableAivenProjectEventLog(ctx context.Context) *plugin.Table {
 		List: &plugin.ListConfig{
 			ParentHydrate: listProjects,
 			Hydrate:       listProjectEventLogs,
+			KeyColumns: []*plugin.KeyColumn{
+				{
+					Name:    "project_name",
+					Require: plugin.Optional,
+				},
+			},
 		},
 		Columns: []*plugin.Column{
 			{
@@ -58,6 +64,12 @@ type ProjectEventLog struct {
 
 func listProjectEventLogs(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	project := h.Item.(*aiven.Project)
+	project_name := d.EqualsQuals["project_name"].GetStringValue()
+
+	// check if the provided project_name is not matching with the parentHydrate
+	if project_name != "" && project_name != project.Name {
+		return nil, nil
+	}
 
 	conn, err := getClient(ctx, d)
 	if err != nil {

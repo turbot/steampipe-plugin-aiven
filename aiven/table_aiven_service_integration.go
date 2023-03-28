@@ -13,8 +13,19 @@ func tableAivenServiceIntegration(ctx context.Context) *plugin.Table {
 		Name:        "aiven_service_integration",
 		Description: "Retrieve information about your service integrations.",
 		List: &plugin.ListConfig{
-			KeyColumns: plugin.AllColumns([]string{"source_project", "source_service"}),
-			Hydrate:    listServiceIntegrations,
+			Hydrate: listServiceIntegrations,
+			KeyColumns: []*plugin.KeyColumn{
+				{
+					Name:       "source_project",
+					Require:    plugin.Required,
+					CacheMatch: "exact",
+				},
+				{
+					Name:       "source_service",
+					Require:    plugin.Required,
+					CacheMatch: "exact",
+				},
+			},
 		},
 		Get: &plugin.GetConfig{
 			KeyColumns: plugin.AllColumns([]string{"source_project", "service_integration_id"}),
@@ -102,7 +113,7 @@ func tableAivenServiceIntegration(ctx context.Context) *plugin.Table {
 			{
 				Name:        "integration_status",
 				Type:        proto.ColumnType_JSON,
-				Description: "Integration status.",
+				Description: "The integration status.",
 			},
 			{
 				Name:        "user_config",
@@ -117,7 +128,7 @@ func listServiceIntegrations(ctx context.Context, d *plugin.QueryData, _ *plugin
 	project := d.EqualsQuals["source_project"].GetStringValue()
 	service := d.EqualsQuals["source_service"].GetStringValue()
 
-	// Check if project or service is empty.
+	// Check if project or service is empty
 	if project == "" || service == "" {
 		return nil, nil
 	}
@@ -150,7 +161,7 @@ func getServiceIntegration(ctx context.Context, d *plugin.QueryData, _ *plugin.H
 	project := d.EqualsQuals["source_project"].GetStringValue()
 	integrationID := d.EqualsQuals["service_integration_id"].GetStringValue()
 
-	// Check if project or integrationID is empty.
+	// Check if project or integrationID is empty
 	if project == "" || integrationID == "" {
 		return nil, nil
 	}

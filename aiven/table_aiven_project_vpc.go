@@ -16,6 +16,12 @@ func tableAivenProjectVpc(ctx context.Context) *plugin.Table {
 		List: &plugin.ListConfig{
 			ParentHydrate: listProjects,
 			Hydrate:       listProjectVpcs,
+			KeyColumns: []*plugin.KeyColumn{
+				{
+					Name:    "project_name",
+					Require: plugin.Optional,
+				},
+			},
 		},
 		Get: &plugin.GetConfig{
 			KeyColumns: plugin.AllColumns([]string{"project_vpc_id", "project_name"}),
@@ -75,6 +81,12 @@ type ProjectVpc struct {
 
 func listProjectVpcs(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	project := h.Item.(*aiven.Project)
+	project_name := d.EqualsQuals["project_name"].GetStringValue()
+
+	// check if the provided project_name is not matching with the parentHydrate
+	if project_name != "" && project_name != project.Name {
+		return nil, nil
+	}
 
 	conn, err := getClient(ctx, d)
 	if err != nil {
@@ -104,7 +116,7 @@ func getProjectVpc(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateDa
 	project := d.EqualsQuals["project_name"].GetStringValue()
 	id := d.EqualsQuals["project_vpc_id"].GetStringValue()
 
-	// Check if project or id is empty.
+	// Check if project or id is empty
 	if project == "" || id == "" {
 		return nil, nil
 	}

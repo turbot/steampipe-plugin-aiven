@@ -64,7 +64,7 @@ func tableAivenProject(ctx context.Context) *plugin.Table {
 			{
 				Name:        "payment_method",
 				Type:        proto.ColumnType_STRING,
-				Description: "Payment method.",
+				Description: "The payment method.",
 			},
 			{
 				Name:        "vat_id",
@@ -75,7 +75,7 @@ func tableAivenProject(ctx context.Context) *plugin.Table {
 			{
 				Name:        "billing_currency",
 				Type:        proto.ColumnType_STRING,
-				Description: "Billing currency.",
+				Description: "The billing currency.",
 			},
 			{
 				Name:        "copy_from_project",
@@ -139,7 +139,7 @@ func listProjects(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateDat
 func getProject(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	name := d.EqualsQuals["name"].GetStringValue()
 
-	// Check if name is empty.
+	// Check if name is empty
 	if name == "" {
 		return nil, nil
 	}

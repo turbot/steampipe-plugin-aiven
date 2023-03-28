@@ -31,8 +31,7 @@ select
 from
   aiven_project
 where
-  estimated_balance::float > 50
-  and billing_currency = 'USD';
+  estimated_balance::float > 50;
 ```
 
 ### List projects where services are not running

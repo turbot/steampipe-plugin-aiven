@@ -22,12 +22,12 @@ func tableAivenAccount(ctx context.Context) *plugin.Table {
 			{
 				Name:        "id",
 				Type:        proto.ColumnType_STRING,
-				Description: "The ID of the account.",
+				Description: "The account ID.",
 			},
 			{
 				Name:        "name",
 				Type:        proto.ColumnType_STRING,
-				Description: "The name of the account.",
+				Description: "The account name.",
 			},
 			{
 				Name:        "billing_enabled",
@@ -84,17 +84,17 @@ func listAccounts(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateDat
 }
 
 func getAccount(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
-	conn, err := getClient(ctx, d)
-	if err != nil {
-		plugin.Logger(ctx).Error("getAccount", "connection_error", err)
-		return nil, err
-	}
-
 	id := d.EqualsQuals["id"].GetStringValue()
 
 	// Check if id is empty.
 	if id == "" {
 		return nil, nil
+	}
+
+	conn, err := getClient(ctx, d)
+	if err != nil {
+		plugin.Logger(ctx).Error("getAccount", "connection_error", err)
+		return nil, err
 	}
 
 	accountList, err := conn.Accounts.Get(id)

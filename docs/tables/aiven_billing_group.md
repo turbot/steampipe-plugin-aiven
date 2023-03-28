@@ -35,7 +35,7 @@ where
   g.id = p.billing_group_id;
 ```
 
-### Get billing group information for turbot
+### Get billing group information for turbot company
 
 ```sql
 select

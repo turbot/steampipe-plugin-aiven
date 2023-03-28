@@ -15,6 +15,12 @@ func tableAivenAccountTeam(ctx context.Context) *plugin.Table {
 		List: &plugin.ListConfig{
 			ParentHydrate: listAccounts,
 			Hydrate:       listAccountTeams,
+			KeyColumns: []*plugin.KeyColumn{
+				{
+					Name:    "account_id",
+					Require: plugin.Optional,
+				},
+			},
 		},
 		Get: &plugin.GetConfig{
 			KeyColumns: plugin.AllColumns([]string{"account_id", "id"}),
@@ -24,17 +30,17 @@ func tableAivenAccountTeam(ctx context.Context) *plugin.Table {
 			{
 				Name:        "id",
 				Type:        proto.ColumnType_STRING,
-				Description: "The ID of the account team.",
+				Description: "The account team ID.",
 			},
 			{
 				Name:        "name",
 				Type:        proto.ColumnType_STRING,
-				Description: "The name of the account team.",
+				Description: "The account team name.",
 			},
 			{
 				Name:        "account_id",
 				Type:        proto.ColumnType_STRING,
-				Description: "The ID of the account team.",
+				Description: "The account ID.",
 			},
 			{
 				Name:        "create_time",
@@ -52,6 +58,12 @@ func tableAivenAccountTeam(ctx context.Context) *plugin.Table {
 
 func listAccountTeams(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	account := h.Item.(aiven.Account)
+	account_id := d.EqualsQuals["account_id"].GetStringValue()
+
+	// check if the provided account_id is not matching with the parentHydrate
+	if account_id != "" && account_id != account.Id {
+		return nil, nil
+	}
 
 	conn, err := getClient(ctx, d)
 	if err != nil {

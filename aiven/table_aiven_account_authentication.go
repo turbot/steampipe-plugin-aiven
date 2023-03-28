@@ -16,6 +16,12 @@ func tableAivenAccountAuthentication(ctx context.Context) *plugin.Table {
 		List: &plugin.ListConfig{
 			ParentHydrate: listAccounts,
 			Hydrate:       listAccountAuthentications,
+			KeyColumns: []*plugin.KeyColumn{
+				{
+					Name:    "account_id",
+					Require: plugin.Optional,
+				},
+			},
 		},
 		Get: &plugin.GetConfig{
 			KeyColumns: plugin.AllColumns([]string{"account_id", "id"}),
@@ -40,7 +46,7 @@ func tableAivenAccountAuthentication(ctx context.Context) *plugin.Table {
 			{
 				Name:        "enabled",
 				Type:        proto.ColumnType_BOOL,
-				Description: "Check if the authentication method is enabled.",
+				Description: "If true, authentication method can be used to access account/projects in account. If false, authentication method can still be used to sign in.",
 			},
 			{
 				Name:        "state",
@@ -132,6 +138,12 @@ func tableAivenAccountAuthentication(ctx context.Context) *plugin.Table {
 
 func listAccountAuthentications(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	account := h.Item.(aiven.Account)
+	account_id := d.EqualsQuals["account_id"].GetStringValue()
+
+	// check if the provided account_id is not matching with the parentHydrate
+	if account_id != "" && account_id != account.Id {
+		return nil, nil
+	}
 
 	conn, err := getClient(ctx, d)
 	if err != nil {
@@ -161,7 +173,7 @@ func getAccountAuthentication(ctx context.Context, d *plugin.QueryData, _ *plugi
 	account_id := d.EqualsQuals["account_id"].GetStringValue()
 	auth_id := d.EqualsQuals["id"].GetStringValue()
 
-	// Check if account_id or auth_id is empty.
+	// Check if account_id or auth_id is empty
 	if account_id == "" || auth_id == "" {
 		return nil, nil
 	}

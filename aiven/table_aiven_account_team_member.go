@@ -13,8 +13,19 @@ func tableAivenAccountTeamMember(ctx context.Context) *plugin.Table {
 		Name:        "aiven_account_team_member",
 		Description: "Retrieve information about your account team members.",
 		List: &plugin.ListConfig{
-			KeyColumns: plugin.AllColumns([]string{"account_id", "team_id"}),
-			Hydrate:    listAccountTeamMembers,
+			Hydrate: listAccountTeamMembers,
+			KeyColumns: []*plugin.KeyColumn{
+				{
+					Name:       "account_id",
+					Require:    plugin.Required,
+					CacheMatch: "exact",
+				},
+				{
+					Name:       "team_id",
+					Require:    plugin.Required,
+					CacheMatch: "exact",
+				},
+			},
 		},
 		Columns: []*plugin.Column{
 			{
@@ -40,7 +51,7 @@ func tableAivenAccountTeamMember(ctx context.Context) *plugin.Table {
 			{
 				Name:        "create_time",
 				Type:        proto.ColumnType_TIMESTAMP,
-				Description: "Timestamp in ISO 8601 format, always in UTC.",
+				Description: "The create time of the team member.",
 			},
 			{
 				Name:        "team_id",
@@ -55,7 +66,7 @@ func tableAivenAccountTeamMember(ctx context.Context) *plugin.Table {
 			{
 				Name:        "update_time",
 				Type:        proto.ColumnType_TIMESTAMP,
-				Description: "Timestamp in ISO 8601 format, always in UTC.",
+				Description: "The update time of the team member.",
 			},
 		},
 	}

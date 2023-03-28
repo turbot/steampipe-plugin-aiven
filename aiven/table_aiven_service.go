@@ -16,6 +16,12 @@ func tableAivenService(ctx context.Context) *plugin.Table {
 		List: &plugin.ListConfig{
 			ParentHydrate: listProjects,
 			Hydrate:       listServices,
+			KeyColumns: []*plugin.KeyColumn{
+				{
+					Name:    "project_name",
+					Require: plugin.Optional,
+				},
+			},
 		},
 		Get: &plugin.GetConfig{
 			KeyColumns: plugin.AllColumns([]string{"name", "project_name"}),
@@ -40,7 +46,7 @@ func tableAivenService(ctx context.Context) *plugin.Table {
 			{
 				Name:        "plan",
 				Type:        proto.ColumnType_STRING,
-				Description: "Subscription plan.",
+				Description: "The subscription plan.",
 			},
 			{
 				Name:        "type",
@@ -50,7 +56,7 @@ func tableAivenService(ctx context.Context) *plugin.Table {
 			{
 				Name:        "cloud_name",
 				Type:        proto.ColumnType_STRING,
-				Description: "Target cloud.",
+				Description: "The target cloud.",
 			},
 			{
 				Name:        "create_time",
@@ -162,6 +168,12 @@ type AivenService struct {
 
 func listServices(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	project := h.Item.(*aiven.Project)
+	project_name := d.EqualsQuals["project_name"].GetStringValue()
+
+	// check if the provided project_name is not matching with the parentHydrate
+	if project_name != "" && project_name != project.Name {
+		return nil, nil
+	}
 
 	conn, err := getClient(ctx, d)
 	if err != nil {
@@ -191,7 +203,7 @@ func getService(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData)
 	project := d.EqualsQuals["project_name"].GetStringValue()
 	name := d.EqualsQuals["name"].GetStringValue()
 
-	// Check if project or name is empty.
+	// Check if project or name is empty
 	if project == "" || name == "" {
 		return nil, nil
 	}

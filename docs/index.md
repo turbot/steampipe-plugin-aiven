@@ -114,10 +114,9 @@ You may specify the api token and user agent to authenticate:
 - `user_agent`(optional): Specify the user agent.
 
 ```hcl
-connection "aiven_via_mfa_user" {
+connection "aiven_via_auth_token" {
   plugin     = "aiven"
-  email      = "test@turbot.com"
-  password   = "turbot@123"
+  api_token  = "oGAxUvrjAdL3QBhWnaJI67Pc9P0rPDzDfhykzVfBYPlmvVH8WdJMKaeVKzcrl4CnyXpjiaKJCCNT+OkbpxfWdDNqwZPngS"
   user_agent = "aiven-go-client/v1.2.0"
 }
 ```
@@ -131,7 +130,7 @@ You may specify the email ID, password and user agent to authenticate:
 - `user_agent`(optional): Specify the user agent.
 
 ```hcl
-connection "aiven_via_mfa_user" {
+connection "aiven_via_user" {
   plugin     = "aiven"
   email      = "test@turbot.com"
   password   = "turbot@123"
