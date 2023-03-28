@@ -29,7 +29,6 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			"aiven_project_event_log":            tableAivenProjectEventLog(ctx),
 			"aiven_project_vpc":                  tableAivenProjectVpc(ctx),
 			"aiven_service":                      tableAivenService(ctx),
-			"aiven_service_integration":          tableAivenServiceIntegration(ctx),
 			"aiven_service_integration_endpoint": tableAivenServiceIntegrationEndpoint(ctx),
 		},
 	}
