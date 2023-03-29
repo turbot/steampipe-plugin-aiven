@@ -49,6 +49,21 @@ where
   state <> 'ACTIVE';
 ```
 
+### List VPCs which has invalid peering connections
+
+```sql
+select
+  project_vpc_id,
+  project_name,
+  state,
+  network_cidr
+from
+  aiven_project_vpc,
+  jsonb_array_elements(peering_connections) as c
+where
+  c ->> 'state' = 'INVALID_SPECIFICATION';
+```
+
 ### Get VPC peering connections information for each project
 
 ```sql

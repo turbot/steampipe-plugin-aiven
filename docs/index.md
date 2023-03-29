@@ -151,7 +151,7 @@ connection "aiven_via_mfa_user" {
 
 ### Credentials from Environment Variables
 
-The Aiven plugin will use the Aiven environment variable to obtain credentials **only if other arguments (`api_token`, `user_agent`, `email`, `password`, etc..) are not specified** in the connection:
+The Aiven plugin will use the Aiven environment variable to obtain credentials **only if other arguments (`api_key`, `user_agent`, `email`, `password`, etc..) are not specified** in the connection:
 
 ```sh
 export AIVEN_TOKEN="oGAxUvrjAdL3QBhWnaJI67Pc9P0rPDzDfhykzVfBYPlmvVH8WdJMKaeVKzcrl4Cny"

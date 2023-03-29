@@ -69,6 +69,7 @@ func tableAivenProjectVpc(ctx context.Context) *plugin.Table {
 				Name:        "peering_connections",
 				Type:        proto.ColumnType_JSON,
 				Description: "List of peering connections.",
+				Hydrate:     getProjectVpc,
 			},
 		},
 	}
@@ -112,9 +113,15 @@ func listProjectVpcs(ctx context.Context, d *plugin.QueryData, h *plugin.Hydrate
 	return nil, nil
 }
 
-func getProjectVpc(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
-	project := d.EqualsQuals["project_name"].GetStringValue()
-	id := d.EqualsQuals["project_vpc_id"].GetStringValue()
+func getProjectVpc(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
+	var project, id string
+	if h.Item != nil {
+		project = h.Item.(ProjectVpc).ProjectName
+		id = h.Item.(ProjectVpc).ProjectVPCID
+	} else {
+		project = d.EqualsQuals["project_name"].GetStringValue()
+		id = d.EqualsQuals["project_vpc_id"].GetStringValue()
+	}
 
 	// Check if project or id is empty
 	if project == "" || id == "" {
