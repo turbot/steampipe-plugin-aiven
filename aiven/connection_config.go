@@ -13,7 +13,7 @@ import (
 )
 
 type aivenConfig struct {
-	APIToken  *string `cty:"api_token"`
+	APIKey    *string `cty:"api_key"`
 	UserAgent *string `cty:"user_agent"`
 	Email     *string `cty:"email"`
 	Password  *string `cty:"password"`
@@ -21,7 +21,7 @@ type aivenConfig struct {
 }
 
 var ConfigSchema = map[string]*schema.Attribute{
-	"api_token": {
+	"api_key": {
 		Type: schema.TypeString,
 	},
 	"user_agent": {
@@ -54,14 +54,14 @@ func GetConfig(connection *plugin.Connection) aivenConfig {
 func getClient(ctx context.Context, d *plugin.QueryData) (*aivenClient.Client, error) {
 	aivenConfig := GetConfig(d.Connection)
 
-	apiToken := os.Getenv("AIVEN_API_TOKEN")
-	userAgent := os.Getenv("AIVEN_USER_AGENT")
-	email := os.Getenv("AIVEN_EMAIL")
-	password := os.Getenv("AIVEN_PASSWORD")
-	otp := os.Getenv("AIVEN_OTP")
+	apiKey := os.Getenv("AIVEN_TOKEN")
+	userAgent := ""
+	email := ""
+	password := ""
+	otp := ""
 
-	if aivenConfig.APIToken != nil {
-		apiToken = *aivenConfig.APIToken
+	if aivenConfig.APIKey != nil {
+		apiKey = *aivenConfig.APIKey
 	}
 	if aivenConfig.Email != nil {
 		email = *aivenConfig.Email
@@ -94,9 +94,9 @@ func getClient(ctx context.Context, d *plugin.QueryData) (*aivenClient.Client, e
 		return client, nil
 	}
 
-	// Authenticate with API Token
-	if apiToken != "" {
-		client, err := aivenClient.NewTokenClient(apiToken, userAgent)
+	// Authenticate with API Key
+	if apiKey != "" {
+		client, err := aivenClient.NewTokenClient(apiKey, userAgent)
 		if err != nil {
 			return nil, err
 		}
@@ -111,12 +111,12 @@ func getClient(ctx context.Context, d *plugin.QueryData) (*aivenClient.Client, e
 
 		for k, v := range cliCreds {
 			if k == "auth_token" {
-				apiToken = v
+				apiKey = v
 			}
 		}
 
-		if apiToken != "" {
-			client, err := aivenClient.NewTokenClient(apiToken, userAgent)
+		if apiKey != "" {
+			client, err := aivenClient.NewTokenClient(apiKey, userAgent)
 			if err != nil {
 				return nil, err
 			}
@@ -124,5 +124,5 @@ func getClient(ctx context.Context, d *plugin.QueryData) (*aivenClient.Client, e
 		}
 	}
 
-	return nil, errors.New("'api_token' or ('email' and 'password') or ('email', 'password' and 'otp') must be set in the connection configuration. Edit your connection configuration file and then restart Steampipe")
+	return nil, errors.New("'api_key' or ('email' and 'password') or ('email', 'password' and 'otp') must be set in the connection configuration. Edit your connection configuration file and then restart Steampipe")
 }
