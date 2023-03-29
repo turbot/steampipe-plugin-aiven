@@ -69,3 +69,19 @@ from
 where
   not billing_contact;
 ```
+
+### List users who are not part of any team
+
+```sql
+select
+  email,
+  real_name,
+  billing_contact,
+  member_type,
+  project_name,
+  create_time
+from
+  aiven_project_user
+where
+  team_name = '';
+```
