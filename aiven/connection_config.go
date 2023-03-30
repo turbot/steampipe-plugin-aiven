@@ -13,27 +13,19 @@ import (
 )
 
 type aivenConfig struct {
-	APIKey    *string `cty:"api_key"`
-	UserAgent *string `cty:"user_agent"`
-	Email     *string `cty:"email"`
-	Password  *string `cty:"password"`
-	OTP       *string `cty:"otp"`
+	APIKey   *string `cty:"api_key"`
+	Email    *string `cty:"email"`
+	Password *string `cty:"password"`
 }
 
 var ConfigSchema = map[string]*schema.Attribute{
 	"api_key": {
 		Type: schema.TypeString,
 	},
-	"user_agent": {
-		Type: schema.TypeString,
-	},
 	"email": {
 		Type: schema.TypeString,
 	},
 	"password": {
-		Type: schema.TypeString,
-	},
-	"otp": {
 		Type: schema.TypeString,
 	},
 }
@@ -55,10 +47,8 @@ func getClient(ctx context.Context, d *plugin.QueryData) (*aivenClient.Client, e
 	aivenConfig := GetConfig(d.Connection)
 
 	apiKey := os.Getenv("AIVEN_TOKEN")
-	userAgent := ""
 	email := ""
 	password := ""
-	otp := ""
 
 	if aivenConfig.APIKey != nil {
 		apiKey = *aivenConfig.APIKey
@@ -69,40 +59,20 @@ func getClient(ctx context.Context, d *plugin.QueryData) (*aivenClient.Client, e
 	if aivenConfig.Password != nil {
 		password = *aivenConfig.Password
 	}
-	if aivenConfig.OTP != nil {
-		otp = *aivenConfig.OTP
-	}
-	if aivenConfig.UserAgent != nil {
-		userAgent = *aivenConfig.UserAgent
-	}
 
-	// Authenticate with MFAUser
-	if email != "" && password != "" && otp != "" {
-		client, err := aivenClient.NewMFAUserClient(email, otp, password, userAgent)
+	if apiKey != "" { // Authenticate with API Key
+		client, err := aivenClient.NewTokenClient(apiKey, "")
 		if err != nil {
 			return nil, err
 		}
 		return client, nil
-	}
-
-	// Authenticate with User
-	if email != "" && password != "" {
-		client, err := aivenClient.NewUserClient(email, password, userAgent)
+	} else if email != "" && password != "" { // Authenticate with User
+		client, err := aivenClient.NewUserClient(email, password, "")
 		if err != nil {
 			return nil, err
 		}
 		return client, nil
-	}
-
-	// Authenticate with API Key
-	if apiKey != "" {
-		client, err := aivenClient.NewTokenClient(apiKey, userAgent)
-		if err != nil {
-			return nil, err
-		}
-		return client, nil
-	} else {
-		// Authenticate with CLI
+	} else { // Authenticate with CLI
 		home, _ := os.UserHomeDir()
 		file, _ := ioutil.ReadFile(home + "/.config/aiven/aiven-credentials.json")
 
@@ -116,7 +86,7 @@ func getClient(ctx context.Context, d *plugin.QueryData) (*aivenClient.Client, e
 		}
 
 		if apiKey != "" {
-			client, err := aivenClient.NewTokenClient(apiKey, userAgent)
+			client, err := aivenClient.NewTokenClient(apiKey, "")
 			if err != nil {
 				return nil, err
 			}
@@ -124,5 +94,5 @@ func getClient(ctx context.Context, d *plugin.QueryData) (*aivenClient.Client, e
 		}
 	}
 
-	return nil, errors.New("'api_key' or ('email' and 'password') or ('email', 'password' and 'otp') must be set in the connection configuration. Edit your connection configuration file and then restart Steampipe")
+	return nil, errors.New("'api_key' or ('email' and 'password') must be set in the connection configuration. Edit your connection configuration file and then restart Steampipe")
 }

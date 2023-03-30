@@ -61,97 +61,52 @@ connection "aiven" {
 
   # You can connect to Aiven using one of options below:
 
-  ## Use API Key authentication
+  # Use API Key authentication
   # `api_key` (required) - Create an authentication token in the Aiven Console for use with the Aiven CLI or API.
   # To learn more about using authentication tokens, refer to https://docs.aiven.io/docs/platform/concepts/authentication-tokens
   # Can also be set with the AIVEN_TOKEN environment variable.
   # api_key = "oGAxUvrjAdL3QBhWnaJI67Pc9P0rPDzDfhykzVfBYPlmvVH8WdJMKaeVKzcrl4CnyXpjiaKJCCNT+OkbpxfWdDNqwZPngS"
 
-  # `user_agent` (optional) - Aiven user agent
-  # user_agent = "aiven-go-client/v1.2.0"
-
-  ## Use User authentication
-  # `email` (required) - Aiven user email
+  # Use User authentication
   # email = "test@turbot.com"
-
-  # `password` (required) - Aiven user password
   # password = "test@123"
 
-  # `user_agent` (optional) - Aiven user agent
-  # user_agent = "aiven-go-client/v1.2.0"
-
-
-  ## Use MFA User authentication
-  # `email` (required) - Aiven user email
-  # email = "test@turbot.com"
-
-  # `password` (required) - Aiven user password
-  # password = "test@123"
-
-  # `otp` (required) - Google authenticator OTP for Aiven
-  # otp = "123456"
-
-  # `user_agent` (optional) - Aiven user agent
-  # user_agent = "aiven-go-client/v1.2.0"
-
-  ## If no credentials are specified, the plugin will use Aiven CLI authentication
+  # If no credentials are specified, the plugin will use Aiven CLI authentication.
+  # We recommend using API Key authentication for MFA user.
 }
 ```
 
 ### Authentication token Credentials
 
-You may specify the api key and user agent to authenticate:
+You may specify the api key to authenticate:
 
 - `api_key`(required): Specify the authentication token.
-- `user_agent`(optional): Specify the user agent.
 
 ```hcl
 connection "aiven_via_api_key" {
   plugin     = "aiven"
   api_key  = "oGAxUvrjAdL3QBhWnaJI67Pc9P0rPDzDfhykzVfBYPlmvVH8WdJMKaeVKzcrl4CnyXpjiaKJCCNT+OkbpxfWdDNqwZPngS"
-  user_agent = "aiven-go-client/v1.2.0"
 }
 ```
 
 ### User Credentials
 
-You may specify the email ID, password and user agent to authenticate:
+You may specify the email ID and password to authenticate:
 
 - `email`(required): Specify the aiven email.
 - `password`(required): Specify the aiven password.
-- `user_agent`(optional): Specify the user agent.
 
 ```hcl
 connection "aiven_via_user" {
   plugin     = "aiven"
   email      = "test@turbot.com"
   password   = "turbot@123"
-  user_agent = "aiven-go-client/v1.2.0"
-}
-```
-
-### MFA User Credentials
-
-You may specify the email ID, password, OTP and user agent to authenticate:
-
-- `email`(required): Specify the aiven email.
-- `password`(required): Specify the aiven password.
-- `otp`(required): Specify the google authenticator otp for aiven.
-- `user_agent`(optional): Specify the user agent.
-
-```hcl
-connection "aiven_via_mfa_user" {
-  plugin     = "aiven"
-  email      = "test@turbot.com"
-  password   = "turbot@123"
-  otp        = "123456"
-  user_agent = "aiven-go-client/v1.2.0"
 }
 ```
 
 ### Credentials from Environment Variables
 
-The Aiven plugin will use the Aiven environment variable to obtain credentials **only if other arguments (`api_key`, `user_agent`, `email`, `password`, etc..) are not specified** in the connection:
+The Aiven plugin will use the Aiven environment variable to obtain credentials **only if other arguments (`api_key`, `email`, `password`) are not specified** in the connection:
 
 ```sh
 export AIVEN_TOKEN="oGAxUvrjAdL3QBhWnaJI67Pc9P0rPDzDfhykzVfBYPlmvVH8WdJMKaeVKzcrl4Cny"
