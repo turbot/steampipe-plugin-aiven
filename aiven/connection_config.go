@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"io/ioutil"
 	"os"
 
 	aivenClient "github.com/aiven/aiven-go-client"
@@ -74,7 +73,7 @@ func getClient(ctx context.Context, d *plugin.QueryData) (*aivenClient.Client, e
 		return client, nil
 	} else { // Authenticate with CLI
 		home, _ := os.UserHomeDir()
-		file, _ := ioutil.ReadFile(home + "/.config/aiven/aiven-credentials.json")
+		file, _ := os.ReadFile(home + "/.config/aiven/aiven-credentials.json")
 
 		cliCreds := make(map[string]string)
 		_ = json.Unmarshal([]byte(file), &cliCreds)
