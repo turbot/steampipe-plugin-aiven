@@ -67,7 +67,7 @@ connection "aiven" {
   # Can also be set with the AIVEN_TOKEN environment variable.
   # api_key = "oGAxUvrjAdL3QBhWnaJI67Pc9P0rPDzDfhykzVfBYPlmvVH8WdJMKaeVKzcrl4CnyXpjiaKJCCNT+OkbpxfWdDNqwZPngS"
 
-  # Use User authentication
+  # Use User authentication (without 2FA)
   # email = "test@turbot.com"
   # password = "test@123"
 
@@ -76,15 +76,15 @@ connection "aiven" {
 }
 ```
 
-### Authentication token Credentials
+### Authentication Token Credentials
 
-You may specify the api key to authenticate:
+You may specify the API key to authenticate:
 
-- `api_key`(required): Specify the authentication token.
+- `api_key`: Specify the authentication token.
 
 ```hcl
 connection "aiven_via_api_key" {
-  plugin     = "aiven"
+  plugin   = "aiven"
   api_key  = "oGAxUvrjAdL3QBhWnaJI67Pc9P0rPDzDfhykzVfBYPlmvVH8WdJMKaeVKzcrl4CnyXpjiaKJCCNT+OkbpxfWdDNqwZPngS"
 }
 ```
@@ -93,14 +93,14 @@ connection "aiven_via_api_key" {
 
 You may specify the email ID and password to authenticate:
 
-- `email`(required): Specify the aiven email.
-- `password`(required): Specify the aiven password.
+- `email`: Specify the aiven email.
+- `password`: Specify the aiven password.
 
 ```hcl
 connection "aiven_via_user" {
-  plugin     = "aiven"
-  email      = "test@turbot.com"
-  password   = "turbot@123"
+  plugin   = "aiven"
+  email    = "test@turbot.com"
+  password = "turbot@123"
 }
 ```
 

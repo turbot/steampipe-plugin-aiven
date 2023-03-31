@@ -31,7 +31,7 @@ connection "aiven" {
   # Can also be set with the AIVEN_TOKEN environment variable.
   # api_key = "oGAxUvrjAdL3QBhWnaJI67Pc9P0rPDzDfhykzVfBYPlmvVH8WdJMKaeVKzcrl4CnyXpjiaKJCCNT+OkbpxfWdDNqwZPngS"
 
-  # Use User authentication
+  # Use User authentication (without 2FA)
   # email = "test@turbot.com"
   # password = "test@123"
 
