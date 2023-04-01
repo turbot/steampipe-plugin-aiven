@@ -1,6 +1,6 @@
 ---
 organization: Turbot
-category: ["software development"]
+category: ["saas"]
 icon_url: "/images/plugins/turbot/aiven.svg"
 brand_color: "#FF5733"
 display_name: "Aiven"
