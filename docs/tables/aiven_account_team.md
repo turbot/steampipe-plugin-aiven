@@ -46,7 +46,7 @@ where
   projects = '[]';
 ```
 
-### List members who are admins in each account
+### List the admins of each account
 
 ```sql
 select

@@ -49,7 +49,7 @@ where
   state <> 'ACTIVE';
 ```
 
-### List VPCs which has invalid peering connections
+### List VPCs which have invalid peering connections
 
 ```sql
 select
@@ -64,7 +64,7 @@ where
   c ->> 'state' = 'INVALID_SPECIFICATION';
 ```
 
-### Get VPC peering connections information for each project
+### Get VPC peering connection information of each project
 
 ```sql
 select

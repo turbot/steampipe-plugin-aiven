@@ -93,5 +93,5 @@ func getClient(ctx context.Context, d *plugin.QueryData) (*aivenClient.Client, e
 		}
 	}
 
-	return nil, errors.New("'api_key' or ('email' and 'password') must be set in the connection configuration. Edit your connection configuration file and then restart Steampipe")
+	return nil, errors.New("'api_key' or ('email' and 'password') must be set in the connection configuration. Edit your connection configuration file and then restart Steampipe.")
 }

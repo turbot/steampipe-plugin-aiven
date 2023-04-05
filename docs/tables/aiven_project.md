@@ -52,7 +52,7 @@ where
   and s.state <> 'RUNNING';
 ```
 
-### List projects where default cloud is aws
+### List projects where default cloud provider is aws
 
 ```sql
 select

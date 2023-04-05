@@ -48,3 +48,18 @@ where
   event_type = 'service_integration_create'
   and time >= (now() - interval '7' day) ;
 ```
+
+### List users who powered down the services
+
+```sql
+select
+  actor,
+  event_desc,
+  event_type,
+  project_name,
+  time
+from
+  aiven_project_event_log
+where
+  event_type = 'service_poweroff';
+```

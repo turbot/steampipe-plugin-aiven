@@ -66,7 +66,7 @@ where
   not termination_protection;
 ```
 
-### List services with target cloud aws
+### List services with target cloud provider aws
 
 ```sql
 select
@@ -80,17 +80,4 @@ from
   aiven_service
 where
   cloud_name like 'aws%';
-```
-
-### List service type-specific settings
-
-```sql
-select
-  name,
-  state,
-  plan,
-  type,
-  jsonb_pretty(user_config) as user_config
-from
-  aiven_service;
 ```

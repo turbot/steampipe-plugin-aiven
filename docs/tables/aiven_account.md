@@ -17,7 +17,7 @@ from
   aiven_account;
 ```
 
-### List accounts with enabled billing
+### List accounts with billing enabled
 
 ```sql
 select
@@ -30,4 +30,21 @@ from
   aiven_account
 where
   billing_enabled;
+```
+
+### List projects of each account
+
+```sql
+select
+  a.name as account_name,
+  p.name as project_name,
+  available_credits,
+  default_cloud,
+  estimated_balance,
+  payment_method
+from
+  aiven_account as a,
+  aiven_project as p
+where
+  a.id = p.account_id;
 ```

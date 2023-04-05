@@ -35,7 +35,7 @@ where
   g.id = p.billing_group_id;
 ```
 
-### Get billing group information for turbot company
+### Get billing group information for a specific company
 
 ```sql
 select
@@ -48,5 +48,5 @@ select
 from
   aiven_billing_group
 where
-  company = 'turbot';
+  company = 'Dunder Mifflin';
 ```

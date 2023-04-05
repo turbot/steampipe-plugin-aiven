@@ -34,7 +34,7 @@ where
   not enabled;
 ```
 
-### List pending authentications methods
+### List pending authentication methods
 
 ```sql
 select
@@ -50,7 +50,7 @@ where
   state = 'pending_configuration';
 ```
 
-### List saml authentications methods
+### List SAML authentication methods
 
 ```sql
 select
@@ -66,7 +66,7 @@ where
   type = 'saml';
 ```
 
-### List expired saml certificates
+### List expired SAML certificates
 
 ```sql
 select
