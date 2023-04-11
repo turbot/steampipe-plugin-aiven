@@ -91,13 +91,13 @@ func listProjectVpcs(ctx context.Context, d *plugin.QueryData, h *plugin.Hydrate
 
 	conn, err := getClient(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("listProjectVpcs", "connection_error", err)
+		plugin.Logger(ctx).Error("aiven_project_vpc.listProjectVpcs", "connection_error", err)
 		return nil, err
 	}
 
 	vpcList, err := conn.VPCs.List(project.Name)
 	if err != nil {
-		plugin.Logger(ctx).Error("listProjectVpcs", "api_error", err)
+		plugin.Logger(ctx).Error("aiven_project_vpc.listProjectVpcs", "api_error", err)
 		return nil, err
 	}
 
@@ -130,13 +130,13 @@ func getProjectVpc(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDa
 
 	conn, err := getClient(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("getProjectVpc", "connection_error", err)
+		plugin.Logger(ctx).Error("aiven_project_vpc.getProjectVpc", "connection_error", err)
 		return nil, err
 	}
 
 	vpc, err := conn.VPCs.Get(project, id)
 	if err != nil {
-		plugin.Logger(ctx).Error("getProjectVpc", "api_error", err)
+		plugin.Logger(ctx).Error("aiven_project_vpc.getProjectVpc", "api_error", err)
 		return nil, err
 	}
 

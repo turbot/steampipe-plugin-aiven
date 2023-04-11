@@ -147,13 +147,13 @@ func listAccountAuthentications(ctx context.Context, d *plugin.QueryData, h *plu
 
 	conn, err := getClient(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("listAccountAuthentications", "connection_error", err)
+		plugin.Logger(ctx).Error("aiven_account_authentication.listAccountAuthentications", "connection_error", err)
 		return nil, err
 	}
 
 	authenticationList, err := conn.AccountAuthentications.List(account.Id)
 	if err != nil {
-		plugin.Logger(ctx).Error("listAccountAuthentications", "api_error", err)
+		plugin.Logger(ctx).Error("aiven_account_authentication.listAccountAuthentications", "api_error", err)
 		return nil, err
 	}
 
@@ -180,13 +180,13 @@ func getAccountAuthentication(ctx context.Context, d *plugin.QueryData, _ *plugi
 
 	conn, err := getClient(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("getAccountAuthentication", "connection_error", err)
+		plugin.Logger(ctx).Error("aiven_account_authentication.getAccountAuthentication", "connection_error", err)
 		return nil, err
 	}
 
 	accountAuthentication, err := conn.AccountAuthentications.Get(account_id, auth_id)
 	if err != nil {
-		plugin.Logger(ctx).Error("getAccountAuthentication", "api_error", err)
+		plugin.Logger(ctx).Error("aiven_account_authentication.getAccountAuthentication", "api_error", err)
 		return nil, err
 	}
 

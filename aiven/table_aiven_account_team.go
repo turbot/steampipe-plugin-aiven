@@ -82,13 +82,13 @@ func listAccountTeams(ctx context.Context, d *plugin.QueryData, h *plugin.Hydrat
 
 	conn, err := getClient(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("listAccountTeams", "connection_error", err)
+		plugin.Logger(ctx).Error("aiven_account_team.listAccountTeams", "connection_error", err)
 		return nil, err
 	}
 
 	teamList, err := conn.AccountTeams.List(account.Id)
 	if err != nil {
-		plugin.Logger(ctx).Error("listAccountTeams", "api_error", err)
+		plugin.Logger(ctx).Error("aiven_account_team.listAccountTeams", "api_error", err)
 		return nil, err
 	}
 
@@ -116,13 +116,13 @@ func getAccountTeam(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateD
 
 	conn, err := getClient(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("getAccountTeam", "connection_error", err)
+		plugin.Logger(ctx).Error("aiven_account_team.getAccountTeam", "connection_error", err)
 		return nil, err
 	}
 
 	teamList, err := conn.AccountTeams.Get(account_id, team_id)
 	if err != nil {
-		plugin.Logger(ctx).Error("getAccountTeam", "api_error", err)
+		plugin.Logger(ctx).Error("aiven_account_team.getAccountTeam", "api_error", err)
 		return nil, err
 	}
 
@@ -134,13 +134,13 @@ func getAccountTeamProjects(ctx context.Context, d *plugin.QueryData, h *plugin.
 
 	conn, err := getClient(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("getAccountTeamProjects", "connection_error", err)
+		plugin.Logger(ctx).Error("aiven_account_team.getAccountTeamProjects", "connection_error", err)
 		return nil, err
 	}
 
 	projectList, err := conn.AccountTeamProjects.List(team.AccountId, team.Id)
 	if err != nil {
-		plugin.Logger(ctx).Error("getAccountTeamProjects", "api_error", err)
+		plugin.Logger(ctx).Error("aiven_account_team.getAccountTeamProjects", "api_error", err)
 		return nil, err
 	}
 
@@ -152,13 +152,13 @@ func getAccountTeamMembers(ctx context.Context, d *plugin.QueryData, h *plugin.H
 
 	conn, err := getClient(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("getAccountTeamMembers", "connection_error", err)
+		plugin.Logger(ctx).Error("aiven_account_team.getAccountTeamMembers", "connection_error", err)
 		return nil, err
 	}
 
 	memberList, err := conn.AccountTeamMembers.List(team.AccountId, team.Id)
 	if err != nil {
-		plugin.Logger(ctx).Error("getAccountTeamMembers", "api_error", err)
+		plugin.Logger(ctx).Error("aiven_account_team.getAccountTeamMembers", "api_error", err)
 		return nil, err
 	}
 

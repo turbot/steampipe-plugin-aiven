@@ -73,13 +73,13 @@ func listProjectEventLogs(ctx context.Context, d *plugin.QueryData, h *plugin.Hy
 
 	conn, err := getClient(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("listProjectEventLogs", "connection_error", err)
+		plugin.Logger(ctx).Error("aiven_project_event_log.listProjectEventLogs", "connection_error", err)
 		return nil, err
 	}
 
 	eventLogs, err := conn.Projects.GetEventLog(project.Name)
 	if err != nil {
-		plugin.Logger(ctx).Error("listProjectEventLogs", "api_error", err)
+		plugin.Logger(ctx).Error("aiven_project_event_log.listProjectEventLogs", "api_error", err)
 		return nil, err
 	}
 

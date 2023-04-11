@@ -79,13 +79,13 @@ func listServiceIntegrationEndpoints(ctx context.Context, d *plugin.QueryData, h
 
 	conn, err := getClient(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("listServiceIntegrationEndpoints", "connection_error", err)
+		plugin.Logger(ctx).Error("aiven_service_integration_endpoint.listServiceIntegrationEndpoints", "connection_error", err)
 		return nil, err
 	}
 
 	integrationEndpoints, err := conn.ServiceIntegrationEndpoints.List(project.Name)
 	if err != nil {
-		plugin.Logger(ctx).Error("listServiceIntegrationEndpoints", "api_error", err)
+		plugin.Logger(ctx).Error("aiven_service_integration_endpoint.listServiceIntegrationEndpoints", "api_error", err)
 		return nil, err
 	}
 
@@ -112,13 +112,13 @@ func getServiceIntegrationEndpoint(ctx context.Context, d *plugin.QueryData, _ *
 
 	conn, err := getClient(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("getServiceIntegrationEndpoint", "connection_error", err)
+		plugin.Logger(ctx).Error("aiven_service_integration_endpoint.getServiceIntegrationEndpoint", "connection_error", err)
 		return nil, err
 	}
 
 	integrationEndpoint, err := conn.ServiceIntegrationEndpoints.Get(project, id)
 	if err != nil {
-		plugin.Logger(ctx).Error("getServiceIntegrationEndpoint", "api_error", err)
+		plugin.Logger(ctx).Error("aiven_service_integration_endpoint.getServiceIntegrationEndpoint", "api_error", err)
 		return nil, err
 	}
 

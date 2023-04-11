@@ -114,13 +114,13 @@ func tableAivenProject(ctx context.Context) *plugin.Table {
 func listProjects(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	conn, err := getClient(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("listProjects", "connection_error", err)
+		plugin.Logger(ctx).Error("aiven_project.listProjects", "connection_error", err)
 		return nil, err
 	}
 
 	projectList, err := conn.Projects.List()
 	if err != nil {
-		plugin.Logger(ctx).Error("listProjects", "api_error", err)
+		plugin.Logger(ctx).Error("aiven_project.listProjects", "api_error", err)
 		return nil, err
 	}
 
@@ -146,13 +146,13 @@ func getProject(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData)
 
 	conn, err := getClient(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("getProject", "connection_error", err)
+		plugin.Logger(ctx).Error("aiven_project.getProject", "connection_error", err)
 		return nil, err
 	}
 
 	project, err := conn.Projects.Get(name)
 	if err != nil {
-		plugin.Logger(ctx).Error("getProject", "api_error", err)
+		plugin.Logger(ctx).Error("aiven_project.getProject", "api_error", err)
 		return nil, err
 	}
 

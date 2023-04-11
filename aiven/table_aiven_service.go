@@ -177,13 +177,13 @@ func listServices(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDat
 
 	conn, err := getClient(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("listServices", "connection_error", err)
+		plugin.Logger(ctx).Error("aiven_service.listServices", "connection_error", err)
 		return nil, err
 	}
 
 	serviceList, err := conn.Services.List(project.Name)
 	if err != nil {
-		plugin.Logger(ctx).Error("listServices", "api_error", err)
+		plugin.Logger(ctx).Error("aiven_service.listServices", "api_error", err)
 		return nil, err
 	}
 
@@ -210,13 +210,13 @@ func getService(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData)
 
 	conn, err := getClient(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("getService", "connection_error", err)
+		plugin.Logger(ctx).Error("aiven_service.getService", "connection_error", err)
 		return nil, err
 	}
 
 	service, err := conn.Services.Get(project, name)
 	if err != nil {
-		plugin.Logger(ctx).Error("getService", "api_error", err)
+		plugin.Logger(ctx).Error("aiven_service.getService", "api_error", err)
 		return nil, err
 	}
 

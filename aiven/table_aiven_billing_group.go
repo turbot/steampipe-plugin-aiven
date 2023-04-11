@@ -91,13 +91,13 @@ func tableAivenBillingGroup(ctx context.Context) *plugin.Table {
 func listBillingGroups(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	conn, err := getClient(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("listBillingGroups", "connection_error", err)
+		plugin.Logger(ctx).Error("aiven_billing_group.listBillingGroups", "connection_error", err)
 		return nil, err
 	}
 
 	groupList, err := conn.BillingGroup.ListAll()
 	if err != nil {
-		plugin.Logger(ctx).Error("listBillingGroups", "api_error", err)
+		plugin.Logger(ctx).Error("aiven_billing_group.listBillingGroups", "api_error", err)
 		return nil, err
 	}
 
@@ -123,13 +123,13 @@ func getBillingGroup(ctx context.Context, d *plugin.QueryData, _ *plugin.Hydrate
 
 	conn, err := getClient(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("getBillingGroup", "connection_error", err)
+		plugin.Logger(ctx).Error("aiven_billing_group.getBillingGroup", "connection_error", err)
 		return nil, err
 	}
 
 	group, err := conn.BillingGroup.Get(id)
 	if err != nil {
-		plugin.Logger(ctx).Error("getBillingGroup", "api_error", err)
+		plugin.Logger(ctx).Error("aiven_billing_group.getBillingGroup", "api_error", err)
 		return nil, err
 	}
 

@@ -61,13 +61,13 @@ func tableAivenAccount(ctx context.Context) *plugin.Table {
 func listAccounts(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	conn, err := getClient(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("listAccounts", "connection_error", err)
+		plugin.Logger(ctx).Error("aiven_account.listAccounts", "connection_error", err)
 		return nil, err
 	}
 
 	accountList, err := conn.Accounts.List()
 	if err != nil {
-		plugin.Logger(ctx).Error("listAccounts", "api_error", err)
+		plugin.Logger(ctx).Error("aiven_account.listAccounts", "api_error", err)
 		return nil, err
 	}
 
@@ -93,13 +93,13 @@ func getAccount(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData)
 
 	conn, err := getClient(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("getAccount", "connection_error", err)
+		plugin.Logger(ctx).Error("aiven_account.getAccount", "connection_error", err)
 		return nil, err
 	}
 
 	accountList, err := conn.Accounts.Get(id)
 	if err != nil {
-		plugin.Logger(ctx).Error("getAccount", "api_error", err)
+		plugin.Logger(ctx).Error("aiven_account.getAccount", "api_error", err)
 		return nil, err
 	}
 

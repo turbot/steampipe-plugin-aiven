@@ -92,13 +92,13 @@ func listProjectUsers(ctx context.Context, d *plugin.QueryData, h *plugin.Hydrat
 
 	conn, err := getClient(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("listProjectUsers", "connection_error", err)
+		plugin.Logger(ctx).Error("aiven_project_user.listProjectUsers", "connection_error", err)
 		return nil, err
 	}
 
 	projectUsers, _, err := conn.ProjectUsers.List(project.Name)
 	if err != nil {
-		plugin.Logger(ctx).Error("listProjectUsers", "api_error", err)
+		plugin.Logger(ctx).Error("aiven_project_user.listProjectUsers", "api_error", err)
 		return nil, err
 	}
 
@@ -125,13 +125,13 @@ func getProjectUser(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateD
 
 	conn, err := getClient(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("getProjectUser", "connection_error", err)
+		plugin.Logger(ctx).Error("aiven_project_user.getProjectUser", "connection_error", err)
 		return nil, err
 	}
 
 	user, _, err := conn.ProjectUsers.Get(project, email)
 	if err != nil {
-		plugin.Logger(ctx).Error("getProjectUser", "api_error", err)
+		plugin.Logger(ctx).Error("aiven_project_user.getProjectUser", "api_error", err)
 		return nil, err
 	}
 
