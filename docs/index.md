@@ -2,7 +2,7 @@
 organization: Turbot
 category: ["saas"]
 icon_url: "/images/plugins/turbot/aiven.svg"
-brand_color: "#FF5733"
+brand_color: "#FF3554"
 display_name: "Aiven"
 short_name: "aiven"
 description: "Steampipe plugin for Aiven."
