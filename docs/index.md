@@ -86,6 +86,7 @@ connection "aiven" {
   # We recommend using API Key authentication for MFA user.
 }
 ```
+
 ## Configuring Aiven Credentials
 
 ### Authentication Token Credentials
@@ -95,7 +96,7 @@ You may specify the API key to authenticate:
 - `api_key`: Specify the authentication token.
 
 ```hcl
-connection "aiven_via_api_key" {
+connection "aiven" {
   plugin   = "aiven"
   api_key  = "oGAxUvrjAdL3QBhWnaJI67Pc9P0rPDzDfhykzVfBYPlmvVH8WdJMKaeVKzcrl4CnyXpjiaKJCCNT+OkbpxfWdDNqwZPngS"
 }
@@ -109,7 +110,7 @@ You may specify the email ID and password to authenticate:
 - `password`: Specify the aiven password.
 
 ```hcl
-connection "aiven_via_user" {
+connection "aiven" {
   plugin   = "aiven"
   email    = "test@turbot.com"
   password = "turbot@123"
@@ -122,12 +123,6 @@ The Aiven plugin will use the Aiven environment variable to obtain credentials *
 
 ```sh
 export AIVEN_TOKEN="oGAxUvrjAdL3QBhWnaJI67Pc9P0rPDzDfhykzVfBYPlmvVH8WdJMKaeVKzcrl4Cny"
-```
-
-```hcl
-connection "aiven" {
-  plugin = "aiven"
-}
 ```
 
 ### Aiven CLI
