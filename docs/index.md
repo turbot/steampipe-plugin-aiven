@@ -12,11 +12,11 @@ og_image: "/images/plugins/turbot/aiven-social-graphic.png"
 
 # Aiven + Steampipe
 
-[Steampipe](https://steampipe.io) is an open source CLI to instantly query cloud APIs using SQL.
-
 [Aiven](https://aiven.io) is the company that offers the best data infrastructure platform to the world.
 
-For example:
+[Steampipe](https://steampipe.io) is an open source CLI to instantly query cloud APIs using SQL.
+
+List your Aiven accounts:
 
 ```sql
 select
@@ -41,19 +41,30 @@ from
 
 - **[Table definitions & examples →](/plugins/turbot/aiven/tables)**
 
-## Get started
+## Quick start
 
 ### Install
 
 Download and install the latest Aiven plugin:
 
-```bash
+```sh
 steampipe plugin install aiven
 ```
+
+### Credentials
+
+| Item        | Description                                                                                                                                                             |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Credentials | Aiven requires an [API key](https://docs.aiven.io/docs/platform/howto/create_authentication_token) or `email` and `password` for all requests.                          |
+| Permissions | API keys have the same permissions as the user who creates them, and if the user permissions change, the API key permissions also change.                               |
+| Radius      | Each connection represents a single Aiven Installation.                                                                                                                 |
+| Resolution  | 1. Credentials explicitly set in a steampipe config file (`~/.steampipe/config/aiven.spc`)<br />2. Credentials specified in environment variables, e.g., `AIVEN_TOKEN`. |
 
 ### Configuration
 
 Installing the latest aiven plugin will create a config file (`~/.steampipe/config/aiven.spc`) with a single connection named `aiven`:
+
+Configure your account details in `~/.steampipe/config/aiven.spc`:
 
 ```hcl
 connection "aiven" {
@@ -75,6 +86,7 @@ connection "aiven" {
   # We recommend using API Key authentication for MFA user.
 }
 ```
+## Configuring Aiven Credentials
 
 ### Authentication Token Credentials
 

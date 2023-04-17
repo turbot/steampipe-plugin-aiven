@@ -11,32 +11,65 @@ Use SQL to query projects, services, integration endpoints and more from Aiven.
 
 ## Quick start
 
-Install the plugin with [Steampipe](https://steampipe.io):
+Download and install the latest Aiven plugin:
 
-```shell
+```bash
 steampipe plugin install aiven
 ```
 
-Configure different methods for authentication in `~/.steampipe/config/aiven.spc`:
+Configure your [credentials](https://hub.steampipe.io/plugins/turbot/aiven#credentials) and [config file](https://hub.steampipe.io/plugins/turbot/aiven#configuration).
+
+Configure your account details in `~/.steampipe/config/aiven.spc`:
+
+### Authentication Token Credentials
+
+You may specify the API key to authenticate:
+
+- `api_key`: Specify the authentication token.
+
+```hcl
+connection "aiven_via_api_key" {
+  plugin   = "aiven"
+  api_key  = "oGAxUvrjAdL3QBhWnaJI67Pc9P0rPDzDfhykzVfBYPlmvVH8WdJMKaeVKzcrl4CnyXpjiaKJCCNT+OkbpxfWdDNqwZPngS"
+}
+```
+
+### User Credentials
+
+You may specify the email ID and password to authenticate:
+
+- `email`: Specify the aiven email.
+- `password`: Specify the aiven password.
+
+```hcl
+connection "aiven_via_user" {
+  plugin   = "aiven"
+  email    = "test@turbot.com"
+  password = "turbot@123"
+}
+```
+
+### Credentials from Environment Variables
+
+The Aiven plugin will use the Aiven environment variable to obtain credentials **only if other arguments (`api_key`, `email`, `password`) are not specified** in the connection:
+
+```sh
+export AIVEN_TOKEN="oGAxUvrjAdL3QBhWnaJI67Pc9P0rPDzDfhykzVfBYPlmvVH8WdJMKaeVKzcrl4Cny"
+```
 
 ```hcl
 connection "aiven" {
   plugin = "aiven"
+}
+```
 
-  # You can connect to Aiven using one of the options below:
+### Aiven CLI
 
-  # Using API Key authentication
-  # `api_key` (required) - Create an authentication token in the Aiven Console for use with the Aiven CLI or API.
-  # To create an authentication token, refer to https://docs.aiven.io/docs/platform/howto/create_authentication_token
-  # Can also be set with the AIVEN_TOKEN environment variable.
-  # api_key = "oGAxUvrjAdL3QBhWnaJI67Pc9P0rPDzDfhykzVfBYPlmvVH8WdJMKaeVKzcrl4CnyXpjiaKJCCNT+OkbpxfWdDNqwZPngS"
+If no credentials are specified and the environment variables are not set, the plugin will use the active credentials from the Aiven CLI. You can run `avn user login` to set up these credentials.
 
-  # Using User authentication (without 2FA)
-  # email = "test@turbot.com"
-  # password = "test@123"
-
-  # If no credentials are specified, the plugin will use Aiven CLI authentication.
-  # We recommend using API Key authentication for MFA user.
+```hcl
+connection "aiven" {
+  plugin = "aiven"
 }
 ```
 
@@ -46,7 +79,7 @@ Run steampipe:
 steampipe query
 ```
 
-Query your account:
+List your Aiven accounts:
 
 ```sql
 select
