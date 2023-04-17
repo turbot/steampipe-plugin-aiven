@@ -5,7 +5,7 @@ icon_url: "/images/plugins/turbot/aiven.svg"
 brand_color: "#FF3554"
 display_name: "Aiven"
 short_name: "aiven"
-description: "Steampipe plugin for Aiven."
+description: "Steampipe plugin to query accounts, projects, teams, users and more from Aiven."
 og_description: "Query Aiven with SQL! Open source CLI. No DB required."
 og_image: "/images/plugins/turbot/aiven-social-graphic.png"
 ---
