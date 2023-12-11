@@ -108,6 +108,7 @@ where
   member_type = 'admin';
 ```
 
+
 ### List users with no billing contact
 Gain insights into the accounts where no billing contact has been assigned to the user. This is beneficial for identifying potential gaps in account management and ensuring all users have appropriate billing contacts.
 
