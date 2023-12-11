@@ -136,7 +136,4 @@ connection "aiven" {
 }
 ```
 
-## Get involved
 
-- Open source: https://github.com/turbot/steampipe-plugin-aiven
-- Community: [Join #steampipe on Slack →](https://turbot.com/community/join)
