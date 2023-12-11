@@ -8,7 +8,7 @@ on:
 
 jobs:
   anywhere_publish_workflow:
-    uses: turbot/steampipe-workflows/.github/workflows/anywhere.yml@main
+    uses: turbot/steampipe-workflows/.github/workflows/steampipe-anywhere.yml@main
     secrets: inherit
     with:
       plugin: aiven
