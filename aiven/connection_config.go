@@ -8,25 +8,12 @@ import (
 
 	aivenClient "github.com/aiven/aiven-go-client"
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/schema"
 )
 
 type aivenConfig struct {
-	APIKey   *string `cty:"api_key"`
-	Email    *string `cty:"email"`
-	Password *string `cty:"password"`
-}
-
-var ConfigSchema = map[string]*schema.Attribute{
-	"api_key": {
-		Type: schema.TypeString,
-	},
-	"email": {
-		Type: schema.TypeString,
-	},
-	"password": {
-		Type: schema.TypeString,
-	},
+	APIKey   *string `hcl:"api_key"`
+	Email    *string `hcl:"email"`
+	Password *string `hcl:"password"`
 }
 
 func ConfigInstance() interface{} {
