@@ -8,13 +8,14 @@ short_name: "aiven"
 description: "Steampipe plugin to query accounts, projects, teams, users and more from Aiven."
 og_description: "Query Aiven with SQL! Open source CLI. No DB required."
 og_image: "/images/plugins/turbot/aiven-social-graphic.png"
+engines: ["steampipe", "sqlite", "postgres", "export"]
 ---
 
 # Aiven + Steampipe
 
 [Aiven](https://aiven.io) is the company that offers the best data infrastructure platform to the world.
 
-[Steampipe](https://steampipe.io) is an open source CLI to instantly query cloud APIs using SQL.
+[Steampipe](https://steampipe.io) is an open-source zero-ETL engine to instantly query cloud APIs using SQL.
 
 List your Aiven accounts:
 
@@ -135,7 +136,4 @@ connection "aiven" {
 }
 ```
 
-## Get involved
 
-- Open source: https://github.com/turbot/steampipe-plugin-aiven
-- Community: [Join #steampipe on Slack →](https://turbot.com/community/join)
