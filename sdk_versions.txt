@@ -1,2 +1,0 @@
-steampipe-plugin-aiven: v5.10.1
-steampipe-plugin-aiven: v5.10.1
