@@ -7,7 +7,7 @@ import (
 	"os"
 
 	aivenClient "github.com/aiven/aiven-go-client"
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v6/plugin"
 )
 
 type aivenConfig struct {
@@ -22,10 +22,10 @@ func ConfigInstance() interface{} {
 
 // GetConfig :: retrieve and cast connection config from query data
 func GetConfig(connection *plugin.Connection) aivenConfig {
-	if connection == nil || connection.Config == nil {
+	if connection == nil || connection.GetConfig() == nil {
 		return aivenConfig{}
 	}
-	config, _ := connection.Config.(aivenConfig)
+	config, _ := connection.GetConfig().(aivenConfig)
 	return config
 }
 
@@ -80,5 +80,5 @@ func getClient(ctx context.Context, d *plugin.QueryData) (*aivenClient.Client, e
 		}
 	}
 
-	return nil, errors.New("'api_key' or ('email' and 'password') must be set in the connection configuration. Edit your connection configuration file and then restart Steampipe.")
+	return nil, errors.New("'api_key' or ('email' and 'password') must be set in the connection configuration. Edit your connection configuration file and then restart Steampipe")
 }
